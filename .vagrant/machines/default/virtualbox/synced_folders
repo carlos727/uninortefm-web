@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/uninortefm-web":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/uninortefm-web","hostpath":"C:/Users/carlos/LaravelsProjects/uninortefm-web","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/carlos/LaravelsProjects/uninortefm-web","disabled":false}}}

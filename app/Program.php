@@ -2,10 +2,9 @@
 
 namespace App;
 
-//use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model //Authenticatable
+class Program extends Model
 {
 	/**
 	 * The attributes that are mass assignable.
@@ -13,7 +12,7 @@ class User extends Model //Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'username', 'rol', 'isActive'
+		'name', 'start_at', 'end_at', 'day'
 	];
 
 	/**
@@ -22,6 +21,6 @@ class User extends Model //Authenticatable
 	 * @var array
 	 */
 	protected $hidden = [
-		'created_at', 'updated_at'
+		'created_at'
 	];
 }
