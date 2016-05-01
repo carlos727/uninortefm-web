@@ -32,7 +32,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/json/sunday', 'ProgramController@sunday');
 
 	//Show Users Dashboard
-	Route::get('/users', ['as' => 'users', 'UserController@show']);
+	Route::get('/users', ['as' => 'users', 'uses' => 'UserController@show']);
 	//Add New User
 	Route::post('/users/user', 'UserController@store');
 	//Delete User
