@@ -1,0 +1,28 @@
+html {
+	display: table;
+	height: 100%;
+	margin: auto;
+}
+
+.card-panel {
+	padding: 10px 40px !important;
+    margin-bottom: 200px;
+}
+.margin { margin: 0 !important; }
+
+.red-inst {
+	background-color:#cb333b;
+	display: table-cell;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.btn {
+	background-color:black;
+	color:white;
+}
+
+.btn:hover {
+	background-color: #ffcd00;
+	color: black;
+}

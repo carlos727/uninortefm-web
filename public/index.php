@@ -1,5 +1,10 @@
 <?php
 
+	function asset($path)
+	{
+	    return '//' . $_SERVER['HTTP_HOST'] . '/' . trim($path, '/');
+	}
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
