@@ -13,7 +13,9 @@ class User extends Model //Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'username', 'rol', 'isActive'
+		'username',
+		'rol',
+		'isActive'
 	];
 
 	/**
@@ -22,6 +24,7 @@ class User extends Model //Authenticatable
 	 * @var array
 	 */
 	protected $hidden = [
-		'created_at', 'updated_at'
+		'created_at',
+		'updated_at'
 	];
 }

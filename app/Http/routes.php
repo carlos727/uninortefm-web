@@ -48,3 +48,6 @@ Route::group(['middleware' => 'web'], function () {
 
 //Add New Notification
 Route::post('/notification', 'NotificationController@store');
+
+//Add New Email
+Route::post('/email', 'EmailController@store');

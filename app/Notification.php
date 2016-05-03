@@ -12,7 +12,10 @@ class Notification extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'deviceToken', 'program', 'start_at', 'day'
+		'deviceToken',
+		'program',
+		'start_at',
+		'day'
 	];
 
 	/**

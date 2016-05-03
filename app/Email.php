@@ -4,18 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Program extends Model
+class Email extends Model
 {
-	/**
+    /**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
 	protected $fillable = [
-		'name',
-		'start_at',
-		'end_at',
-		'day'
+		'receiver',
+		'sender_name',
+		'subject',
+		'message'
 	];
 
 	/**
@@ -24,6 +24,6 @@ class Program extends Model
 	 * @var array
 	 */
 	protected $hidden = [
-		'created_at'
+		'updated_at'
 	];
 }
