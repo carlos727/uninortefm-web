@@ -25,6 +25,7 @@ class ProgramController extends Controller
 			'sunday'	=>	'',
 			'users'		=>	'',
 			'programs'	=>	'activeli',
+			'emails'	=>	'',
 			'day'		=>	0
 		];
 
@@ -90,6 +91,7 @@ class ProgramController extends Controller
 			'sunday'	=>	'',
 			'users'		=>	'',
 			'programs'	=>	'activeli',
+			'emails'	=>	'',
 			'day'		=>	0
 		];
 
@@ -157,6 +159,7 @@ class ProgramController extends Controller
 			'sunday'	=>	' ',
 			'users'		=>	' ',
 			'programs'	=>	'activeli',
+			'emails'	=>	'',
 			'day'		=>	0
 		];
 
@@ -247,6 +250,7 @@ class ProgramController extends Controller
 			'sunday'	=>	' ',
 			'users'		=>	' ',
 			'programs'	=>	'activeli',
+			'emails'	=>	'',
 			'day'		=>	0
 		];
 

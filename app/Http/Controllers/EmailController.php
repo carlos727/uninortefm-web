@@ -2,14 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\Email;
+
+use DB;
+use Response;
 
 class EmailController extends Controller
 {
+	public function all() {
+		$emails = DB::table('emails')
+					->groupBy('isChecked')
+					->orderBy('created_at', 'desc')
+					->get();
+
+		return Response::json($emails);
+	}
+
 	public function show() {
-		$emails = Email::orderBy('created_at', 'asc')->get();
+		$emails = Email::orderBy('created_at', 'desc')->get();
 
 		$class = [
 			'users'		=>	'',
@@ -34,7 +47,40 @@ class EmailController extends Controller
 		}
 	}
 
-	public function send(Email $email) {
-		//Send Email
+	public function delete($id) {
+		$class = [
+			'users'		=>	'',
+			'programs'	=>	'',
+			'emails'	=>	'activeli'
+		];
+
+		Email::findOrFail($id)->delete();
+
+		$emails = Email::orderBy('created_at', 'desc')->get();
+
+		return Redirect::route('emails', [
+					'emails' => $emails,
+					'class' => $class
+				]);
+	}
+
+	public function update($id, Request $request) {
+		$email = User::find($id);
+
+		$class = [
+			'users'		=>	'activeli',
+			'emails'	=>	'',
+			'programs'	=>	' '
+		];
+
+		$email->isChecked = $request->isChecked;
+		$email->save();
+
+		$emails = Email::orderBy('created_at', 'desc')->get();
+
+		return Redirect::route('emails', [
+					'emails' => $emails,
+					'class' => $class
+				]);
 	}
 }

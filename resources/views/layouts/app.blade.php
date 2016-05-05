@@ -41,6 +41,11 @@
 					<li class="{{ $class['programs'] }}">
 						<i class="material-icons">playlist_play</i>
 						{{ link_to('/', 'Programación', ['class' => 'nav-link']) }}
+					</li>
+					<li class="{{ $class['emails'] }}">
+						<i class="material-icons">mail_outline</i>
+						{{ link_to('/emails', 'Buzón', ['class' => 'nav-link']) }}
+					</li>
 				</ul>
 			</aside>
 
@@ -57,6 +62,7 @@
 			// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 				$('.modal-trigger').leanModal();
 				$('.tooltipped').tooltip({delay: 50});
+				$('.collapsible').collapsible();
 			});
 		</script>
 	</body>

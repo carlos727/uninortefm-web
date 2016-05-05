@@ -7,16 +7,27 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 
+use DB;
+use Response;
 use Validator;
 
 class UserController extends Controller
 {
+	public function all() {
+		$users = DB::table('users')
+					->groupBy('isActive')
+					->get();
+
+		return Response::json($users);
+	}
+
 	public function show() {
 		$users = User::orderBy('username','asc')->get();
 
 		$class = [
 			'users'		=>	'activeli',
-			'programs'	=>	''
+			'programs'	=>	'',
+			'emails'	=>	''
 		];
 
 		return view('users',[
@@ -44,6 +55,7 @@ class UserController extends Controller
 
 		$class = [
 			'users'		=>	'activeli',
+			'emails'	=>	'',
 			'programs'	=>	''
 		];
 
@@ -74,6 +86,7 @@ class UserController extends Controller
 	public function delete($id){
 		$class = [
 			'users'		=>	'activeli',
+			'emails'	=>	'',
 			'programs'	=>	' '
 		];
 
@@ -92,6 +105,7 @@ class UserController extends Controller
 
 		$class = [
 			'users'		=>	'activeli',
+			'emails'	=>	'',
 			'programs'	=>	' '
 		];
 

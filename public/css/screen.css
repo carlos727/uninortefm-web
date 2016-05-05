@@ -40,7 +40,7 @@ div[id^="tab"] { margin-top:45px; }
 	margin-top:0;
 }
 
-#headuser { margin-bottom:40px; }
+header[id^="head"] { margin-bottom:40px; }
 
 .row .col{ padding:0; }
 

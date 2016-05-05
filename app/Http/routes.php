@@ -18,7 +18,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::post('/program', 'ProgramController@store');
 	//Delete Program
 	Route::delete('/program/{program}', 'ProgramController@delete');
-	//Edit Program
+	//Update Program
 	Route::put('/program/{program}', 'ProgramController@update');
 	//Show All Schedule in JSON Format
 	Route::get('/json', 'ProgramController@all');
@@ -37,13 +37,24 @@ Route::group(['middleware' => 'web'], function () {
 	Route::post('/users/user', 'UserController@store');
 	//Delete User
 	Route::delete('/users/user/{user}', 'UserController@delete');
-	//Edit User
+	//Update User
 	Route::put('/users/user/{user}', 'UserController@update');
+	//Show All Users in JSON Format
+	Route::get('/users/json', 'UserController@all');
 	//User Login
 	Route::get('/login', 'UserController@login');
 
 	//Show All Notifications in JSON Format
 	Route::get('/notifications', 'NotificationController@all');
+
+	//Show Emails Dashboard
+	Route::get('/emails', ['as' =>'emails', 'uses' => 'EmailController@show');
+	//Delete Email
+	Route::delete('/emails/email/{email}', 'EmailController@delete');
+	//Update Email
+	Route::put('/emails/email/{email}', 'EmailController@update')
+	//Show All Emails in JSON Format
+	Route::get('/emails/json', 'EmailController@all');
 });
 
 //Add New Notification

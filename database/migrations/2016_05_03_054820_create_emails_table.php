@@ -14,10 +14,10 @@ class CreateEmailsTable extends Migration
 	{
 		Schema::create('emails', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('receiver');
 			$table->string('sender_name')->nullable();
 			$table->string('subject');
 			$table->string('message');
+			$table->boolean('isChecked');
 			$table->timestamps();
 		});
 	}
