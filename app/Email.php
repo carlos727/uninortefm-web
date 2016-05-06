@@ -12,10 +12,10 @@ class Email extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'receiver',
 		'sender_name',
 		'subject',
-		'message'
+		'message',
+		'isChecked'
 	];
 
 	/**

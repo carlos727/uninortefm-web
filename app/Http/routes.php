@@ -48,11 +48,11 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/notifications', 'NotificationController@all');
 
 	//Show Emails Dashboard
-	Route::get('/emails', ['as' =>'emails', 'uses' => 'EmailController@show');
+	Route::get('/emails', ['as' =>'emails', 'uses' => 'EmailController@show']);
 	//Delete Email
 	Route::delete('/emails/email/{email}', 'EmailController@delete');
 	//Update Email
-	Route::put('/emails/email/{email}', 'EmailController@update')
+	Route::put('/emails/email/{email}', 'EmailController@update');
 	//Show All Emails in JSON Format
 	Route::get('/emails/json', 'EmailController@all');
 });

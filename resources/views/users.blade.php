@@ -100,9 +100,6 @@
 																	</p>
 																</div>
 															</div>
-															<input type="text" name="username" value="{{ $user->username }}" class="hide">
-															<input type="text" name="rol" value="{{ $user->rol }}" class="hide">
-															<input type="text" name="isActive" value="false" class="hide">
 															<button type="submit" class="btn modal-action modal-close waves-effect waves-green">Inhabilitar</button>
 														</form>
 													</div>

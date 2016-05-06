@@ -113,6 +113,8 @@ header[id^="head"] { margin-bottom:40px; }
 
 .activeli { background-color:black; }
 
+.collapsible { padding:0 20px; }
+
 @media screen and (min-width:974px) and (max-width:1005px) {
 
 	.side-nav .nav-link { font-size: 1rem !important; }

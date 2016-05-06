@@ -43,7 +43,7 @@
 						{{ link_to('/', 'Programación', ['class' => 'nav-link']) }}
 					</li>
 					<li class="{{ $class['emails'] }}">
-						<i class="material-icons">mail_outline</i>
+						<i class="material-icons">mail</i>
 						{{ link_to('/emails', 'Buzón', ['class' => 'nav-link']) }}
 					</li>
 				</ul>

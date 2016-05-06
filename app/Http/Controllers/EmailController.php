@@ -14,7 +14,6 @@ class EmailController extends Controller
 {
 	public function all() {
 		$emails = DB::table('emails')
-					->groupBy('isChecked')
 					->orderBy('created_at', 'desc')
 					->get();
 
@@ -36,14 +35,25 @@ class EmailController extends Controller
 		]);
 	}
 	public function store(Request $request) {
-		if ($request->has('receiver') && $request->has('subject') && $request->has('message')) {
+		if ($request->has('sender_name') && $request->has('subject') && $request->has('message')) {
+			$class = [
+				'users'		=>	'',
+				'programs'	=>	'',
+				'emails'	=>	'activeli'
+			];
+
 			$email = new Email;
-			$email->receiver = $request->input('receiver');
 			$email->sender_name = $request->input('sender_name');
 			$email->subject = $request->input('subject');
 			$email->message = $request->input('message');
 			$email->save();
-			return response($email, 201);
+			//return response($email, 201);
+			$emails = Email::orderBy('created_at', 'desc')->get();
+
+			return Redirect::route('emails', [
+						'emails' => $emails,
+						'class' => $class
+					]);
 		}
 	}
 
@@ -64,8 +74,8 @@ class EmailController extends Controller
 				]);
 	}
 
-	public function update($id, Request $request) {
-		$email = User::find($id);
+	public function update($id) {
+		$email = Email::find($id);
 
 		$class = [
 			'users'		=>	'activeli',
@@ -73,7 +83,11 @@ class EmailController extends Controller
 			'programs'	=>	' '
 		];
 
-		$email->isChecked = $request->isChecked;
+		if ($email->isChecked == false) {
+			$email->isChecked = true;
+		} else {
+			$email->isChecked = false;
+		}
 		$email->save();
 
 		$emails = Email::orderBy('created_at', 'desc')->get();

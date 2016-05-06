@@ -14,9 +14,7 @@ use Validator;
 class UserController extends Controller
 {
 	public function all() {
-		$users = DB::table('users')
-					->groupBy('isActive')
-					->get();
+		$users = DB::table('users')->get();
 
 		return Response::json($users);
 	}
@@ -100,7 +98,7 @@ class UserController extends Controller
 				]);
 	}
 
-	public function update($id, Request $request){
+	public function update($id){
 		$user = User::find($id);
 
 		$class = [
@@ -109,7 +107,11 @@ class UserController extends Controller
 			'programs'	=>	' '
 		];
 
-		$user->isActive = $request->isActive;
+		if ($user->isActive == false) {
+			$user->isActive = true;
+		} else {
+			$user->isActive = false;
+		}
 		$user->save();
 
 		$users = User::orderBy('username', 'asc')->get();
