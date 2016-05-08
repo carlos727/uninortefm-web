@@ -9,22 +9,11 @@
 		</div>
 	</header>
 
-	<section class="row center">
-		<form action="{{ url('email') }}" method="POST">
-			{!! csrf_field() !!}
-			<input type="text" name="isChecked" value="true" class="hide">
-			<input type="text" name="sender_name" value="Carlos Beleño" class="hide">
-			<input type="text" name="subject" value="Prueba Emails" class="hide">
-			<input type="text" name="message" value="mis respetos para el atletic que ha sacado solo campergdjkkdfafskjabfslabfsslabfasbfasbflajsbflasbfblaones mira lo que dice jajajajaj q penorio los de Madrid" class="hide">
-			<button type="submit" class="waves-effect waves-light btn"><i class="material-icons">add_to_queue</i></button>
-		</form>
-	</section>
-
 	@if (count($emails) > 0)
 		<section class="row">
 			<?php $a=0 ?>
 			@foreach ($emails as $email)
-				@if ($email->isChecked == 0)
+				@if ($email->isChecked == false)
 					<?php $a++; ?>
 				@endif
 			@endforeach
@@ -33,27 +22,31 @@
 				<ul class="collapsible" data-collapsible="accordion">
 					No Leídos
 					@foreach ($emails as $email)
-						@if ($email->isChecked == 0)
+						@if ($email->isChecked == false)
 							<li>
 								<div class="collapsible-header">
-									<div class="divider"></div>
-									<i class="material-icons">mail</i> <b>{{ $email->sender_name }}</b><b> Asunto: {{ $email->subject }} </b>
-									<div class="divider"></div>
+									<div class="row">
+										<div class="col s10">
+											<i class="material-icons">mail</i>
+											<b>{{ $email->sender_name }} - {{ $email->subject }}</b>
+										</div>
+										<div class="col s2"><b class="right">{{ $email->created_at->format('M d') }}</b></div>
+									</div>
 								</div>
 								<div class="collapsible-body">
 									<p>{{ $email->message }}</p>
 									<div class="divider"></div>
-									<footer>
-										<form action="{{ url('emails/email/'.$email->id) }}" method="POST">
+									<footer class="row">
+										<form action="{{ url('emails/email/'.$email->id) }}" method="POST" class="col s1 offset-s10">
 											{!! csrf_field() !!}
 											{!! method_field('PUT') !!}
 											<button type="submit" class="waves-effect waves-light btn tooltipped" data-position="left" data-delay="50" data-tooltip="Marcar como Leído"><i class="material-icons">mail_outline</i></button>
 										</form>
 
-										<form action="{{ url('emails/email/'.$email->id) }}" method="POST">
+										<form action="{{ url('emails/email/'.$email->id) }}" method="POST" class="col s1">
 											{!! csrf_field() !!}
 											{!! method_field('DELETE') !!}
-											<button type="submit" class="waves-effect waves-light btn tooltipped" data-position="right" data-delay="50" data-tooltip="Eliminar"><i class="material-icons">delete_forever</i></button>
+											<button type="submit" class="waves-effect waves-light btn tooltipped" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="material-icons">delete_forever</i></button>
 										</form>
 									</footer>
 								</div>
@@ -65,35 +58,40 @@
 
 			<?php $a=0 ?>
 			@foreach ($emails as $email)
-				@if ($email->isChecked == 1)
+				@if ($email->isChecked == true)
 					<?php $a++; ?>
 				@endif
 			@endforeach
 
 			<?php if ($a > 0) { ?>
 				<ul class="collapsible" data-collapsible="accordion">
-					Todos los demás
+					Leídos
 					@foreach ($emails as $email)
-						@if ($email->isChecked == 1)
+						@if ($email->isChecked == true)
 							<li>
 								<div class="collapsible-header">
-									<i class="material-icons">mail_outline</i>  {{ $email->sender_name }}      Asunto: {{ $email->subject }}
+									<div class="row">
+										<div class="col s10">
+											<i class="material-icons">mail_outline</i>
+											<span>{{ $email->sender_name }} - {{ $email->subject }}</span>
+										</div>
+										<div class="col s2"><sapn class="right">{{ $email->created_at->format('M d') }}</sapn></div>
+									</div>
 								</div>
 								<div class="collapsible-body">
-									<section>{{ $email->message }}</section>
+									<p>{{ $email->message }}</p>
 									<div class="divider"></div>
-									<footer>
-										<form action="{{ url('emails/email/'.$email->id) }}" method="POST">
+									<footer class="row">
+										<form action="{{ url('emails/email/'.$email->id) }}" method="POST" class="col s1 offset-s10">
 											{!! csrf_field() !!}
 											{!! method_field('PUT') !!}
-											<input type="text" name="isChecked" value="0" class="hide">
-											<button type="submit" class="waves-effect waves-light btn tooltipped" data-position="left" data-delay="50" data-tooltip="Marcar como No Leído"><i class="material-icons">mail</i></button>
+											<button type="submit" class="waves-effect waves-light btn tooltipped" data-position="left" data-delay="50" data-tooltip="Marcar como NO Leído"><i class="material-icons">mail</i></button>
 										</form>
 
-										<form action="{{ url('emails/email/'.$email->id) }}" method="POST">
+										<form action="{{ url('emails/email/'.$email->id) }}" method="POST" class="col s1">
 											{!! csrf_field() !!}
 											{!! method_field('DELETE') !!}
-											<button type="submit" class="waves-effect waves-light btn tooltipped" data-position="right" data-delay="50" data-tooltip="Eliminar"><i class="material-icons">delete_forever</i></button>
+											<button type="submit" class="waves-effect waves-light btn tooltipped" data-position="top" data-delay="50" data-tooltip="Eliminar"><i class="material-icons">delete_forever</i></button>
 										</form>
 									</footer>
 								</div>

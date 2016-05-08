@@ -13,7 +13,7 @@
 
 Route::group(['middleware' => 'web'], function () {
 	//Show Schedule Dashboard
-	Route::get('/', 'ProgramController@show');
+	Route::get('/', ['as' => 'programs', 'uses' => 'ProgramController@show']);
 	//Add New Program
 	Route::post('/program', 'ProgramController@store');
 	//Delete Program

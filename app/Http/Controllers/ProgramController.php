@@ -16,7 +16,7 @@ class ProgramController extends Controller
 		$programs = Program::orderBy('start_at', 'asc')->get();
 
 		$class = [
-			'monday'		=>	'active',
+			'monday'	=>	'active',
 			'tuesday'	=>	'',
 			'wednesday'	=>	'',
 			'thursday'	=>	'',
@@ -30,9 +30,9 @@ class ProgramController extends Controller
 		];
 
 		return view('programs', [
-			'programs' => $programs,
-			'class' => $class
-		]);
+					'programs' => $programs,
+					'class' => $class
+				]);
 	}
 
 	public function store(Request $request) {
@@ -59,12 +59,15 @@ class ProgramController extends Controller
 			$conts = 0;
 			$conte =  0;
 			$contover = 0;
+			$continto = 0;
 			foreach ($programs as $program) {
 				$program_start = strtotime($program->start_at);
 				$program_end = strtotime($program->end_at);
 
 				if ($start_at <= $program_start && $end_at >= $program_end) {
 					$contover++;
+				} elseif ($start_at > $program_start && $end_at < $program_end) {
+					$continto++;
 				} elseif ($start_at < $program_start && $end_at > $program_start) {
 					$conte++;
 				} elseif ($start_at < $program_end && $end_at > $program_end) {
@@ -72,7 +75,7 @@ class ProgramController extends Controller
 				}
 			}
 
-		    if ($contover > 0) {
+		    if ($contover > 0 || $continto > 0) {
 				$validator->errors()->add('end_at', 'Existe otro programa en medio de este horario!');
 			} elseif ($conte > 0) {
 				$validator->errors()->add('end_at', 'La hora de finalización no puede ser en medio de otro programa!');

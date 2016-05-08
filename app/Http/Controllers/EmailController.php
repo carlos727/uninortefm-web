@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Email;
@@ -36,24 +36,12 @@ class EmailController extends Controller
 	}
 	public function store(Request $request) {
 		if ($request->has('sender_name') && $request->has('subject') && $request->has('message')) {
-			$class = [
-				'users'		=>	'',
-				'programs'	=>	'',
-				'emails'	=>	'activeli'
-			];
-
 			$email = new Email;
 			$email->sender_name = $request->input('sender_name');
 			$email->subject = $request->input('subject');
 			$email->message = $request->input('message');
 			$email->save();
-			//return response($email, 201);
-			$emails = Email::orderBy('created_at', 'desc')->get();
-
-			return Redirect::route('emails', [
-						'emails' => $emails,
-						'class' => $class
-					]);
+			return response($email, 201);
 		}
 	}
 
@@ -68,7 +56,7 @@ class EmailController extends Controller
 
 		$emails = Email::orderBy('created_at', 'desc')->get();
 
-		return Redirect::route('emails', [
+		return redirect()->route('emails', [
 					'emails' => $emails,
 					'class' => $class
 				]);
@@ -92,7 +80,7 @@ class EmailController extends Controller
 
 		$emails = Email::orderBy('created_at', 'desc')->get();
 
-		return Redirect::route('emails', [
+		return redirect()->route('emails', [
 					'emails' => $emails,
 					'class' => $class
 				]);

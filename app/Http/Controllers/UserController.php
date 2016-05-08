@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
@@ -75,7 +75,7 @@ class UserController extends Controller
 
 		$users = User::orderBy('username', 'asc')->get();
 
-		return Redirect::route('users', [
+		return redirect()->route('users', [
 					'users' => $users,
 					'class' => $class
 				]);
@@ -92,7 +92,7 @@ class UserController extends Controller
 
 		$users = User::orderBy('username', 'asc')->get();
 
-		return Redirect::route('users', [
+		return redirect()->route('users', [
 					'users' => $users,
 					'class' => $class
 				]);
@@ -116,7 +116,7 @@ class UserController extends Controller
 
 		$users = User::orderBy('username', 'asc')->get();
 
-		return Redirect::route('users', [
+		return redirect()->route('users', [
 					'users' => $users,
 					'class' => $class
 				]);
