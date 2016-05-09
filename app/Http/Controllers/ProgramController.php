@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Program;
+use App\Notification;
 
 use DB;
 use Response;
 use Validator;
+
+use Davibennun\LaravelPushNotification\Facades\PushNotification;
+
 
 class ProgramController extends Controller
 {
@@ -148,7 +152,7 @@ class ProgramController extends Controller
 
 	public function delete($id){
 		$program = DB::table('programs')
-					->select('day')
+					->select('day', 'name', 'start_at')
 					->where('id','=', $id)
 					->first();
 
@@ -182,6 +186,34 @@ class ProgramController extends Controller
 			$class['sunday'] = 'active';
 		}
 
+		//Delete Related Notifications
+		$notifications = Notification::where('day', $program->day)
+									->where('program', $program->name)
+									->where('start_at', $program->start_at)
+									->get();
+
+		foreach ($notifications as $notification) {
+			switch ($notification->day) {
+				case 0:	$day = "Domingo";break;
+				case 1:	$day = "Lunes";break;
+				case 2: $day = "Martes";break;
+				case 3:	$day = "Miércoles";break;
+				case 4:	$day = "Jueves";break;
+				case 5:	$day = "Viernes";break;
+				case 6:	$day = "Sábado";break;
+				default:break;
+			}
+
+			PushNotification::app('notificationServerAndroid')
+							->to($notification->deviceToken)
+							->send('El programa '.$notification->program.
+									'  ya no será transmitido el día '.$day.
+									' a las '.$notification->start_at);
+
+			Notification::findOrFail($notification->id)->delete();
+		}
+		/******/
+
 		Program::findOrFail($id)->delete();
 
 		$programs = Program::orderBy('start_at', 'asc')->get();
@@ -214,7 +246,7 @@ class ProgramController extends Controller
 			$start_at = strtotime(array_get($validator->getData(), 'start_at', null));
 			$end_at = strtotime(array_get($validator->getData(), 'end_at', null));
 
-			$programs = Program::where('day','=', $day)->orderBy('start_at', 'asc')->get();			
+			$programs = Program::where('day','=', $day)->orderBy('start_at', 'asc')->get();
 
 			$conts = 0;
 			$conte =  0;
@@ -289,6 +321,46 @@ class ProgramController extends Controller
 				])
 				->withErrors($validator->errors());
 		}
+
+		//Update Related Notifications
+		if ($program->name != $request->name || $program->start_at != $request->start_at) {
+			$notifications = Notification::where('day', $program->day)
+										->where('program', $program->name)
+										->where('start_at', $program->start_at)
+										->get();
+
+			foreach ($notifications as $notification) {
+				switch ($notification->day) {
+					case 0:	$day = "Domingo";break;
+					case 1:	$day = "Lunes";break;
+					case 2: $day = "Martes";break;
+					case 3:	$day = "Miércoles";break;
+					case 4:	$day = "Jueves";break;
+					case 5:	$day = "Viernes";break;
+					case 6:	$day = "Sábado";break;
+					default:break;
+				}
+
+				if ($notification->program != $request->name) {
+					PushNotification::app('notificationServerAndroid')
+									->to($notification->deviceToken)
+									->send('El programa '.$notification->program.
+											'  ya no será transmitido el día '.$day.
+											' a las '.$notification->start_at);
+
+					Notification::findOrFail($notification->id)->delete();
+				} else {
+					PushNotification::app('notificationServerAndroid')
+									->to($notification->deviceToken)
+									->send('El programa '.$notification->program.
+											'  ahora será transmitido el día '.$day.
+											' a las '.$request->start_at);
+
+					Notification::findOrFail($notification->id)->update(['start_at' => $request->start_at]);
+				}
+			}
+		}
+		/******/
 
 		$program->name = $request->name;
 		$program->start_at = $request->start_at;

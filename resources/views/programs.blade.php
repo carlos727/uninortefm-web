@@ -157,6 +157,7 @@
 							</div>
 						</div>
 					</div>
+
 					@if ($class['day'] == $i)
 						@include('common.errors')
 					@endif
@@ -173,9 +174,18 @@
 						<thead>
 							<?php if ($a > 0) { ?>
 								<tr>
-									<th data-field="name">Nombre</th>
-									<th data-field="start_at">Inicio</th>
-									<th data-field="end_at">Fin</th>
+									<th data-field="schedule">
+										<div class="valign-wrapper">
+											<i class="material-icons">alarm</i>
+											<b class="valign">Horario</b>
+										</div>
+									</th>
+									<th data-field="name">
+										<div class="valign-wrapper">
+											<i class="material-icons">radio</i>
+											<b class="valign">Nombre</b>
+										</div>
+									</th>
 									<th data-field="actions">Acciones</th>
 								</tr>
 							<?php } ?>
@@ -185,9 +195,13 @@
 							@foreach ($programs as $program)
 								@if ($program->day == $i)
 									<tr>
+										<td>
+											<div>
+												<div>{{ $program->start_at }}</div>
+												<div>{{ $program->end_at }}</div>
+											</div>
+										</td>
 										<td><div>{{ $program->name }}</div></td>
-										<td><div>{{ $program->start_at }}</div></td>
-										<td><div>{{ $program->end_at }}</div></td>
 										<td>
 											<a class="waves-effect waves-light btn modal-trigger tooltipped" href="#modet{{ $program->id }}" data-position="left" data-delay="50" data-tooltip="Editar"><i class="material-icons">edit</i></a>
 											<div id="modet{{ $program->id }}" class="modal">

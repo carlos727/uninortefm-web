@@ -44,16 +44,17 @@ class Kernel extends ConsoleKernel
 			}
 			$start_at = $hour.":".$minute;
 
-			$notifications = Notification::where('day','=', $day)->orderBy('start_at', 'asc')->get();
+			$notifications = Notification::where('day', $day)
+										->where('start_at', $start_at)
+										->orderBy('created_at', 'asc')
+										->get();
 
 			foreach ($notifications as $notification) {
-				if ($notification->start_at == $start_at) {
-					PushNotification::app('notificationServerAndroid')
-										->to($notification->deviceToken)
-										->send('El programa '.$notification->program.' esta a punto de empezar!');
+				PushNotification::app('notificationServerAndroid')
+								->to($notification->deviceToken)
+								->send('El programa '.$notification->program.' esta a punto de empezar!');
 
-					$notification->delete();
-				}
+				Notification::findOrFail($notification->id)->delete();
 			}
 		})->everyTenMinutes();
 	}
