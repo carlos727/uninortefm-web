@@ -100,6 +100,12 @@ header[id^="head"] { margin-bottom:40px; }
 	min-height:40px;
 }
 
+.dropdown-button i, .dropdown-content li > a {
+	color:#444 !important;
+	padding:0 !important;
+	text-align:center;
+}
+
 .modal-content img {
 	height:120px;
 	width:120px;
