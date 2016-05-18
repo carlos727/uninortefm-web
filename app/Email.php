@@ -13,7 +13,7 @@ class Email extends Model
 	 */
 	protected $fillable = [
 		'sender_name',
-		'subject',
+		'email',
 		'message',
 		'isChecked'
 	];

@@ -28,7 +28,7 @@
 									<div class="row">
 										<div class="col s10">
 											<i class="material-icons">mail</i>
-											<b>{{ $email->sender_name }} - {{ $email->subject }}</b>
+											<b>{{ $email->sender_name }}</b> <span>({{ $email->email }})</span>
 										</div>
 										<div class="col s2"><b class="right">{{ $email->created_at->format('M d') }}</b></div>
 									</div>
