@@ -3,7 +3,10 @@ header {
 	border-bottom:1px solid #CCC;
 	color:black;
 }
+
 header .row { margin-bottom:0; }
+
+img { width:100%; }
 
 section { padding-left:0; }
 
