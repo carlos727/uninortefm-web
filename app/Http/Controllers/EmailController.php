@@ -40,6 +40,7 @@ class EmailController extends Controller
 			$email->sender_name = $request->input('sender_name');
 			$email->email = $request->input('email');
 			$email->message = $request->input('message');
+			$email->isChecked = false;
 			$email->save();
 			return response($email, 201);
 		}
