@@ -38,7 +38,7 @@ class EmailController extends Controller
 		if ($request->has('sender_name') && $request->has('email') && $request->has('message')) {
 			$email = new Email;
 			$email->sender_name = $request->input('sender_name');
-			$email->subject = $request->input('email');
+			$email->email = $request->input('email');
 			$email->message = $request->input('message');
 			$email->save();
 			return response($email, 201);
